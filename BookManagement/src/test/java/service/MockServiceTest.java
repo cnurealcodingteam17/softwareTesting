@@ -59,6 +59,36 @@ public class MockServiceTest{
         assertThat(mockService.findByName("Cinderella").getPrice(), is(books.get(1).getPrice()));
     }
 
+    /*verify 를 사용하여 신데렐라 책을 저장하는 프로세스가 진행되었는지 테스트함.*/
+    @Test
+    public void bookName_Cinderella_verify(){
+        Book book = mock(Book.class);
+
+        book.setName("Cinderella");
+        book.setAuthor("CharlesPerrault");
+        book.setPrice(10000);
+
+        verify(book,times(1)).setName(anyString());
+    }
+
+    /*책팔기Test 손님이 원하는 책을말하고 돈을 내면 거스름돈 주기!*/
+    @Test
+    public void TestChange() {
+
+        when(mockService.findByName("WinnieThePooh")).thenReturn(new Book("WinnieThePooh", "AlanAlexanderMilne", 15000));
+
+        assertThat(mockService.Buy_Book_change("WinnieThePooh",20000), is(5000));
+
+    }
+
+    /*손님이 돈을 덜 낸 경우 Test 에러 처리 될까요~?? 된다1!!!*/
+    @Test(expected = IllegalArgumentException.class)
+    public void exceptionTestChange(){
+
+        when(mockService.findByName("WinnieThePooh")).thenReturn(new Book("WinnieThePooh", "AlanAlexanderMilne", 15000));
+        assertThat(mockService.Buy_Book_change("WinnieThePooh",5000), is(-10000));
+
+    }
 
 
 }
