@@ -18,6 +18,16 @@ public class MockService {
         return book;
     }
 
+    public int Buy_Book_change(String book_name, int money) {
+        Book book = findByName(book_name);
+
+        if (book.getPrice() > money) {
+            throw new IllegalArgumentException();
+        }
+
+        return money-book.getPrice();
+    }
+
 
 }
 
