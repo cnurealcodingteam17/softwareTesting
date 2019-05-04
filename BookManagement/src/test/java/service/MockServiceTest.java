@@ -81,7 +81,7 @@ public class MockServiceTest{
 
     }
 
-    /*손님이 돈을 덜 낸 경우 Test 에러 처리 될까요~?? 된다1!!!*/
+    /*손님이 돈을 덜 낸 경우 Test 에러 처리 될까요~?? 된다!!!!*/
     @Test(expected = IllegalArgumentException.class)
     public void exceptionTestChange(){
 
@@ -89,6 +89,27 @@ public class MockServiceTest{
         assertThat(mockService.Buy_Book_change("WinnieThePooh",5000), is(-10000));
 
     }
+
+    @Test //가격 변동
+    public void Check_Changed_PriceMock(){
+
+        when(mockService.findByName("Pinocchio")).thenReturn(new Book("Pinocchio", "CarloCollodi",12500));
+        when(mockService.updatePrice_ByName("Pinocchio",20000)).thenReturn(new Book("Pinocchio", "CarloCollodi",20000));
+
+        Book book = mockService.updatePrice_ByName("Pinocchio",20000);
+
+        assertThat(book.getPrice(), is(20000));
+
+    }
+    //서점에서 "인어공주"라는 책을 저장하려고하면 오류를 던진다.
+    //ex. "인어공주"는 판매불가 책이라고 가정.
+    @Test(expected = IllegalArgumentException.class)
+    public void CheckStockBook(){
+        Book book = mock(Book.class);
+        doThrow(new IllegalArgumentException()).when(book).setName(eq("TheLittleMermaid"));
+        book.setName("TheLittleMermaid");
+    }
+
 
 
 }
