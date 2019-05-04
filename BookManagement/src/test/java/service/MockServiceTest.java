@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,6 +28,7 @@ public class MockServiceTest{
     private List<Book> books = new ArrayList<Book>();
 
 
+    // test를 실행하기 전에 동작해야 리스트의 원소의 개수를 정확히 알 수 있음
     @Before
     public void setUp(){
 
