@@ -28,6 +28,12 @@ public class MockService {
         return money-book.getPrice();
     }
 
+    public Book updatePrice_ByName(String book_name, int price) {
+        Book book = findByName(book_name);
+        book.setPrice(price);
+        return book;
+    }
+
 
 }
 
